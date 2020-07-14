@@ -50,23 +50,6 @@ class quad_position():
         n_parameters = sum(p.numel() for p in self.policy.parameters())
         print('Neural Network Number of Parameters: %i' %n_parameters)
         
-        
-    def error_aquisition(self):
-        self.control_error = np.concatenate((-self.env.state[0:5:2], np.array([1, 0, 0, 0])-self.env.state[6:10]))
-        self.estimation_error = np.concatenate((self.pos_accel-self.env.state[0:5:2], self.quaternion_gyro-self.env.state[6:10]))           
-        self.control_error_list.append(self.control_error)
-        self.estimation_error_list.append(self.estimation_error)
-        
-        if self.env.done:
-            error_contr_final = np.array(self.control_error_list)                
-            error_est_final = np.array(self.estimation_error_list)
-            string = '_True_State.npz' if self.REAL_CTRL else ('_Hybrid.npz' if self.IMG_POS_DETER else '_MEMS.npz')      
-            save_str = self.ERROR_PATH+'episode_'+str(self.episode_n)+string                
-            np.savez(save_str, error_contr_final, error_est_final)
-
-        if self.episode_n == self.ERROR_AQS_EPISODES:
-            sys.exit()
-        
     def drone_position_task(self, task):
         if task.frame == 0 or self.env.done:
             self.control_error_list = []
@@ -96,7 +79,6 @@ class quad_position():
             self.pos_gps, self.vel_gps = self.sensor.gps()
             self.quaternion_triad, _ = self.sensor.triad()
             self.time_total_sens.append(time.time() - time_iter)
-            self.error_aquisition()
             
             #SENSOR CONTROL
             pos_vel = np.array([self.pos_accel[0], self.velocity_accel[0],

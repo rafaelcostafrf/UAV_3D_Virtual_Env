@@ -1,6 +1,3 @@
-from panda3d.core import loadPrcFile
-loadPrcFile('./config/conf.prc')
-
 import sys, os
 
 #Panda 3D Imports
@@ -15,6 +12,9 @@ from computer_vision.camera_calibration import calibration
 from models.world_setup import world_setup, quad_setup
 from models.camera_control import camera_control
 from computer_vision.img_2_cv import opencv_camera
+
+from panda3d.core import loadPrcFile
+loadPrcFile('./config/conf.prc')
 
 """
 INF209B − TÓPICOS ESPECIAIS EM PROCESSAMENTO DE SINAIS:
@@ -69,6 +69,8 @@ mydir = os.path.abspath(sys.path[0])
 
 mydir = Filename.fromOsSpecific(mydir).getFullpath()
 
+frame_interval = 10
+
 class MyApp(ShowBase):
     def __init__(self):
         
@@ -78,8 +80,8 @@ class MyApp(ShowBase):
         # CAMERA NEUTRAL POSITION
         self.cam_neutral_pos = panda3d.core.LPoint3f(5, 5, 7)
 
-        self.cam_1 = opencv_camera(self, 'cam_1')
-        self.cam_2 = opencv_camera(self, 'cam_2')
+        self.cam_1 = opencv_camera(self, 'cam_1', frame_interval)
+        self.cam_2 = opencv_camera(self, 'cam_2', frame_interval)
         
         # MODELS SETUP
         world_setup(self, render, mydir)

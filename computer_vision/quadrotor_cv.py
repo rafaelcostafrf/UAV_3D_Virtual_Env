@@ -26,7 +26,7 @@ class computer_vision():
         self.render.taskMgr.add(self.img_show, 'OpenCv Image Show')
     
     def img_show(self, task):
-        if task.frame % 10 == 1:           
+        if task.frame % self.cv_cam.frame_int == 1:           
             ret, image = self.cv_cam.get_image()
             ret, image2 = self.cv_cam_2.get_image()
             if ret:
