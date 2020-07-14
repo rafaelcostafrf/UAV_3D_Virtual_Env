@@ -1,9 +1,6 @@
 import cv2 as cv
 import numpy as np
-import time
 from collections import deque
-from scipy.spatial.transform import Rotation as R
-from computer_vision.detector_setup import detection_setup
 
 class computer_vision():
     def __init__(self, render, quad_model, quad_env, quad_sens, quad_pos, cv_cam, cv_cam_2, camera_cal, mydir, IMG_POS_DETER):
