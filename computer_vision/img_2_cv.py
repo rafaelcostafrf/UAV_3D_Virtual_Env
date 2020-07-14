@@ -20,6 +20,7 @@ class opencv_camera():
         if len(image) > 0:
             image = np.reshape(image, (tex.getYSize(), tex.getXSize(), 4))
             image = cv.resize(image, (0,0), fx=0.5, fy=0.5)
+            image = cv.flip(image, 0)
             return True, image
         else:
             return False, None

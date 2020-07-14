@@ -14,9 +14,9 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 class quad_position():
     
-    def __init__(self, render, quad_model, prop_models, EPISODE_STEPS, REAL_CTRL, IMG_POS_DETER, ERROR_AQS_EPISODES, ERROR_PATH, HOVER):
+    def __init__(self, render, quad_model, prop_models, EPISODE_STEPS, REAL_CTRL, ERROR_AQS_EPISODES, ERROR_PATH, HOVER):
         self.REAL_CTRL = REAL_CTRL
-        self.IMG_POS_DETER = IMG_POS_DETER
+        self.IMG_POS_DETER = False
         self.ERROR_AQS_EPISODES = ERROR_AQS_EPISODES
         self.ERROR_PATH = ERROR_PATH
         self.HOVER = HOVER

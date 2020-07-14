@@ -50,10 +50,6 @@ DESCRIÇÃO:
     
 """
 
-
-# POSITION AND ATTITUDE ESTIMATION BY IMAGE, ELSE BY MEMS SENSORS
-IMG_POS_DETER = True
-
 # REAL STATE CONTROL ELSE BY ESTIMATION METHODS
 REAL_CTRL = False
 
@@ -97,10 +93,10 @@ class MyApp(ShowBase):
             
     def run_setup(self):
         # DRONE POSITION
-        self.drone = quad_position(self, self.quad_model, self.prop_models, EPISODE_STEPS, REAL_CTRL, IMG_POS_DETER, ERROR_AQS_EPISODES, ERROR_PATH, HOVER)
+        self.drone = quad_position(self, self.quad_model, self.prop_models, EPISODE_STEPS, REAL_CTRL, ERROR_AQS_EPISODES, ERROR_PATH, HOVER)
         
         # COMPUTER VISION
-        self.cv = computer_vision(self, self.quad_model, self.drone.env, self.drone.sensor, self.drone, self.cam_1, self.cam_2, self.camera_cal, mydir, IMG_POS_DETER)        
+        self.cv = computer_vision(self, self.quad_model, self.cam_1, self.cam_2, self.camera_cal)        
         
         # CAMERA CONTROL
         camera_control(self, self.render) 

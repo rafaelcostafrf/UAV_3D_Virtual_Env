@@ -1,23 +1,14 @@
 import cv2 as cv
-import numpy as np
-from collections import deque
+
 
 class computer_vision():
-    def __init__(self, render, quad_model, quad_env, quad_sens, quad_pos, cv_cam, cv_cam_2, camera_cal, mydir, IMG_POS_DETER):
+    def __init__(self, render, quad_model, cv_cam, cv_cam_2, camera_cal):
         
         self.mtx = camera_cal.mtx
         self.dist = camera_cal.dist
-        
-        self.IMG_POS_DETER = IMG_POS_DETER
 
-        self.quad_env = quad_env
-        self.quad_sens = quad_sens
-        self.image_pos = None
-        self.vel_sens = deque(maxlen=100)
-        self.vel_img = deque(maxlen=100)
         self.render = render  
-                
-
+        
         self.render.quad_model.setPos(0, 0, 0)
         self.render.quad_model.setHpr(0, 0, 0)
         
@@ -39,7 +30,7 @@ class computer_vision():
             ret, image = self.cv_cam.get_image()
             ret, image2 = self.cv_cam_2.get_image()
             if ret:
-                cv.imshow('Drone Camera',np.flipud(cv.cvtColor(image, cv.COLOR_RGB2BGR)))
-                cv.imshow('Drone Camera 2 ',np.flipud(cv.cvtColor(image2, cv.COLOR_RGB2BGR)))
+                cv.imshow('Drone Camera',image)
+                cv.imshow('Drone Camera 2 ',image2)
                 cv.waitKey(1)
         return task.cont
