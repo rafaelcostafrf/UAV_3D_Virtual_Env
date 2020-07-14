@@ -1,0 +1,88 @@
+<CoordinateSystem> { Z-up } 
+<Material> Material.001 {
+  <Scalar> diffr { 0.800000 }
+  <Scalar> diffg { 0.800000 }
+  <Scalar> diffb { 0.800000 }
+  <Scalar> specr { 0.130435 }
+  <Scalar> specg { 0.130435 }
+  <Scalar> specb { 0.130435 }
+  <Scalar> shininess { 12.5 }
+  <Scalar> ambr { 1.000000 }
+  <Scalar> ambg { 1.000000 }
+  <Scalar> ambb { 1.000000 }
+  <Scalar> emitr { 0.000000 }
+  <Scalar> emitg { 0.000000 }
+  <Scalar> emitb { 0.000000 }
+}
+
+<Texture> Texture.001 {
+  "./tex/checkerboard.png"
+  <Scalar> envtype { MODULATE }
+  <Scalar> minfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> magfilter { LINEAR_MIPMAP_LINEAR }
+  <Scalar> wrap { REPEAT }
+}
+
+  <Group> Plane {
+    <Transform> {
+      <Matrix4> {
+        5.630000114440918 0.0 0.0 0.0 
+        0.0 4.099999904632568 0.0 0.0 
+        0.0 0.0 1.0 0.0 
+        0.0 0.0 0.0 1.0 
+      }
+    }
+    
+    <VertexPool> Plane {
+    
+      <Vertex> 0 {-1.126000 -0.820000 0.000000
+        <UV>  {
+          0.000000 1.000000 
+        }
+      }
+      <Vertex> 1 {1.126000 -0.820000 0.000000
+        <UV>  {
+          0.000000 0.000000 
+        }
+      }
+      <Vertex> 2 {1.126000 0.820000 0.000000
+        <UV>  {
+          1.000000 0.000000 
+        }
+      }
+      <Vertex> 3 {-1.126000 0.820000 0.000000
+        <UV>  {
+          1.000000 1.000000 
+        }
+      }}
+    
+    
+    <Polygon> {
+      <TRef> { Texture.001 }
+      <MRef> { Material.001 }
+      <Normal> {0.000000 0.000000 1.000000}
+      <VertexRef> { 0 1 2 3 <Ref> { Plane }} 
+    }
+  }
+  <Group> Lamp {
+    <Transform> {
+      <Matrix4> {
+        -0.29086464643478394 0.9551711678504944 -0.05518905818462372 0.0 
+        -0.7711008191108704 -0.1998833566904068 0.6045247316360474 0.0 
+        0.5663931965827942 0.21839119493961334 0.7946722507476807 0.0 
+        4.076245307922363 1.0054539442062378 5.903861999511719 1.0 
+      }
+    }
+    
+  }
+  <Group> Camera {
+    <Transform> {
+      <Matrix4> {
+        0.6859206557273865 0.7276763319969177 0.0 0.0 
+        -0.32401347160339355 0.305420845746994 0.8953956365585327 0.0 
+        0.6515582203865051 -0.6141703724861145 0.44527140259742737 0.0 
+        7.481131553649902 -6.5076398849487305 5.34366512298584 1.0 
+      }
+    }
+    
+  }
