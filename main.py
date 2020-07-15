@@ -1,22 +1,18 @@
 import sys, os
-import numpy as np
 
 #Panda 3D Imports
-import panda3d
 from panda3d.core import Filename
 from direct.showbase.ShowBase import ShowBase
+from panda3d.core import loadPrcFile
+loadPrcFile('./config/conf.prc')
 
 #Custom Functions
 from environment.position import quad_position
 from computer_vision.quadrotor_cv import computer_vision
-from computer_vision.camera_calibration import calibration
 from models.world_setup import world_setup, quad_setup
 from models.camera_control import camera_control
-from computer_vision.img_2_cv import opencv_camera
 from computer_vision.cameras_setup import cameras
 
-from panda3d.core import loadPrcFile
-loadPrcFile('./config/conf.prc')
 
 """
 INF209B − TÓPICOS ESPECIAIS EM PROCESSAMENTO DE SINAIS:
@@ -72,7 +68,7 @@ mydir = os.path.abspath(sys.path[0])
 mydir = Filename.fromOsSpecific(mydir).getFullpath()
 
 frame_interval = 10
-
+cam_names = ('cam_1', 'cam_2')
 class MyApp(ShowBase):
     def __init__(self):
         
@@ -84,7 +80,7 @@ class MyApp(ShowBase):
         quad_setup(self, render, mydir)
                 
         # OPENCV CAMERAS SETUP
-        self.buffer_cameras = cameras(self, frame_interval)        
+        self.buffer_cameras = cameras(self, frame_interval, cam_names)        
     
     def run_setup(self):
         # DRONE POSITION
