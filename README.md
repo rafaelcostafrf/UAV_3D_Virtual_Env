@@ -1,22 +1,27 @@
-# UAVS 3D simulation and visualization using python
+# UAVs Visual Simulation, A Python Approach
 
-## How to use the 3D environment:
+The presented software is a solution to a common problem in machine learning and computer vision applied to UAVS. 
 
-	1. Download the whole repository
-	2. Install the following packages:
-		Panda3d 1.10.6.post2
-		OpenCv 4.2.0
-		Numpy 1.19.0
-		Scipy 1.5.0
-		PyTorch 1.5.1
-	3. Run ./Main.py (does not work on Spyder console)
-	4. Basic Controls:
-		C - Changes camera
-		WASD - Changes external camera angle
-		QE - Changes external camera distance
-    R - Resets Camera
-	5. Controller:
-		Machine Learning Based Controller, trained by a PPO algorithm. 
-	6. Estimation Algorithm:
-		MEMS - Simulates an onboard IMU, with gyroscope, accelerometer and magnetometer. TRIAD algorithm is used to estimate attitude, retangular integrator is used to estimate position. 
-		True State - Uses the exact simulated state.
+In the early phases of an algorithm, it is necessary to be able to simulate it and observe if its running as intended, making necessary corrections and bug catching before downloading and running it in a real platform, enabling a faster development speed and lowering costs of Implementation.
+
+Simulating cameras with good performance is a particularly difficult task, even more so on python, developing one from scratch would take a lot of time, effort, and a good performance wasn't garanteed, so a python game engine was chosen, called Panda3D. 
+
+With this engine and its integration on the presented software, it is possible to simulate commom UAVs missions, as well as its dynamics, on-board or off-board cameras, object visualisation and colision detection. 
+
+
+At this moment, the presented software is capable of:
+
+1. Fully functional quadrotor
+2. On-board and off-board cameras
+3. Direct OpenCv integration. 
+4. Fully Customizable Dynamics
+5. Fully Customizable Scenario Model
+6. Fully Customizable UAV Model
+
+In future versions we plan to include:
+
+1. Object Colision Detection
+
+
+## How to Use:
+please refer to: https://osf.io/a9s54/
