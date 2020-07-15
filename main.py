@@ -1,4 +1,5 @@
 import sys, os
+import numpy as np
 
 #Panda 3D Imports
 import panda3d
@@ -12,6 +13,7 @@ from computer_vision.camera_calibration import calibration
 from models.world_setup import world_setup, quad_setup
 from models.camera_control import camera_control
 from computer_vision.img_2_cv import opencv_camera
+from computer_vision.cameras_setup import cameras
 
 from panda3d.core import loadPrcFile
 loadPrcFile('./config/conf.prc')
@@ -77,30 +79,22 @@ class MyApp(ShowBase):
         ShowBase.__init__(self)       
         render = self.render
         
-        # CAMERA NEUTRAL POSITION
-        self.cam_neutral_pos = panda3d.core.LPoint3f(5, 5, 7)
-
-        self.cam_1 = opencv_camera(self, 'cam_1', frame_interval)
-        self.cam_2 = opencv_camera(self, 'cam_2', frame_interval)
-        
         # MODELS SETUP
         world_setup(self, render, mydir)
         quad_setup(self, render, mydir)
-        
-        # CALIBRATION ALGORITHM
-        self.camera_cal = calibration(self, self.cam_2)    
-        
-        if self.camera_cal.calibrated:
-            self.run_setup()
-            
+                
+        # OPENCV CAMERAS SETUP
+        self.buffer_cameras = cameras(self, frame_interval)        
+    
     def run_setup(self):
         # DRONE POSITION
         self.drone = quad_position(self, self.quad_model, self.prop_models, EPISODE_STEPS, REAL_CTRL, ERROR_AQS_EPISODES, ERROR_PATH, HOVER)
         
         # COMPUTER VISION
-        self.cv = computer_vision(self, self.quad_model, self.cam_1, self.cam_2, self.camera_cal)        
+        self.cv = computer_vision(self, self.quad_model, self.buffer_cameras.opencv_cameras[0], self.buffer_cameras.opencv_cameras[1], self.buffer_cameras.opencv_cam_cal[0])        
         
         # CAMERA CONTROL
         camera_control(self, self.render) 
+                
 app = MyApp()
 app.run()

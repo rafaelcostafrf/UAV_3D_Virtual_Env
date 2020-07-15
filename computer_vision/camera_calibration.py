@@ -15,7 +15,7 @@ class calibration():
             self.calibrated = True
             print('Calibration File Loaded')
         except:
-            print('Could Not Load Calibration File, Calibrating... ')
+            print('Could Not Load Calibration File for camera ' + self.cam.name +', Calibrating... ')
             self.render.taskMgr.add(self.calibrate, 'Camera Calibration')   
             self.calibrated = False
             self.render.cam_pos = []
@@ -33,7 +33,7 @@ class calibration():
 
             self.render.quad_model.setPos(10,10,10)
             
-            ret, image = self.cam.get_image()
+            ret, image = self.cam.get_image(target_frame=False)
             if ret:
                 img = cv.cvtColor(image, cv.COLOR_RGBA2BGR)
                 self.gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)                
@@ -56,16 +56,13 @@ class calibration():
                     cv.imshow('img', dst)
                     self.mtx = mtx
                     self.dist = dist
-                    print('Calibration Complete')
                     self.calibrated = True
                     np.savez(self.path, mtx, dist)
                     print('Calibration File Saved')
-                    print('Calibration Complete! Running the Algorithm...')
-
+                    print(self.cam.name + ' calibration Complete!')
                     self.render.quad_model.setPos(0, 0, 0)
                     self.cam.cam.setPos(0,0,0.01)
                     self.cam.cam.reparentTo(self.render.quad_model)
-                    self.render.run_setup()
                     cv.destroyWindow('img')
                     return task.done
             return task.cont
