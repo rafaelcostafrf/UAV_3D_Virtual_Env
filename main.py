@@ -69,6 +69,7 @@ mydir = Filename.fromOsSpecific(mydir).getFullpath()
 
 frame_interval = 10
 cam_names = ('cam_1', 'cam_2')
+
 class MyApp(ShowBase):
     def __init__(self):
         
@@ -80,7 +81,8 @@ class MyApp(ShowBase):
         quad_setup(self, render, mydir)
                 
         # OPENCV CAMERAS SETUP
-        self.buffer_cameras = cameras(self, frame_interval, cam_names)        
+        self.buffer_cameras = cameras(self, frame_interval, cam_names)  
+        print(self.buffer_cameras.opencv_cam_cal[0].dist)
     
     def run_setup(self):
         # DRONE POSITION

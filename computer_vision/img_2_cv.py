@@ -13,14 +13,13 @@ class opencv_camera():
         self.cam.node().getLens().setFocalLength(45)
         self.name = name
         self.render.taskMgr.add(self.set_active, name) 
+        self.render.taskMgr.add(self.set_active, name)
         self.buffer.setActive(0)
         
     def get_image(self, target_frame=True):
         tex = self.buffer.getTexture()  
         img = tex.getRamImage()
         image = np.frombuffer(img, np.uint8)
-        if target_frame:
-            self.buffer.setActive(0)
         if len(image) > 0:
             image = np.reshape(image, (tex.getYSize(), tex.getXSize(), 4))
             image = cv.resize(image, (0,0), fx=0.5, fy=0.5)
@@ -32,4 +31,9 @@ class opencv_camera():
     def set_active(self, task):
         if task.frame % 10 == 0:
             self.buffer.setActive(1)
+        return task.cont
+    
+    def set_inactive(self, task):
+        if task.frame % 10 == 1:
+            self.buffer.setActive(0)
         return task.cont
